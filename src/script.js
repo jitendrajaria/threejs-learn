@@ -9,7 +9,16 @@ const sizes = {
 
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
+const aspectRatio = sizes.width / sizes.height;
+const camera = new THREE.PerspectiveCamera(75, aspectRatio);
+// const camera = new THREE.OrthographicCamera(
+//   -1 * aspectRatio,
+//   1 * aspectRatio,
+//   1,
+//   -1,
+//   0.1,
+//   100
+// );
 camera.position.z = 3;
 
 scene.add(camera);
@@ -25,16 +34,16 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.render(scene, camera);
 
-const clock = new THREE.Clock();
+// const clock = new THREE.Clock();
 
-const tick = () => {
-  mesh.rotation.y += 0.01;
+// const tick = () => {
+//   mesh.rotation.y += 0.01;
 
-  window.requestAnimationFrame(tick);
-  renderer.render(scene, camera);
-};
+//   window.requestAnimationFrame(tick);
+//   renderer.render(scene, camera);
+// };
 
-tick();
+// tick();
 
 window.addEventListener("resize", () => {
   sizes.width = window.innerWidth;
