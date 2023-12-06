@@ -25,6 +25,17 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.render(scene, camera);
 
+const clock = new THREE.Clock();
+
+const tick = () => {
+  mesh.rotation.y += 0.01;
+
+  window.requestAnimationFrame(tick);
+  renderer.render(scene, camera);
+};
+
+tick();
+
 window.addEventListener("resize", () => {
   sizes.width = window.innerWidth;
   sizes.height = window.innerHeight;
