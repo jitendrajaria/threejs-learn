@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const canvas = document.querySelector("canvas.webgl");
 
@@ -11,15 +12,9 @@ const scene = new THREE.Scene();
 
 const aspectRatio = sizes.width / sizes.height;
 const camera = new THREE.PerspectiveCamera(75, aspectRatio);
-// const camera = new THREE.OrthographicCamera(
-//   -1 * aspectRatio,
-//   1 * aspectRatio,
-//   1,
-//   -1,
-//   0.1,
-//   100
-// );
+
 camera.position.z = 3;
+const controls = new OrbitControls(camera, canvas);
 
 scene.add(camera);
 
@@ -34,16 +29,14 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.render(scene, camera);
 
-// const clock = new THREE.Clock();
+const tick = () => {
+  controls.update();
 
-// const tick = () => {
-//   mesh.rotation.y += 0.01;
+  window.requestAnimationFrame(tick);
+  renderer.render(scene, camera);
+};
 
-//   window.requestAnimationFrame(tick);
-//   renderer.render(scene, camera);
-// };
-
-// tick();
+tick();
 
 window.addEventListener("resize", () => {
   sizes.width = window.innerWidth;
