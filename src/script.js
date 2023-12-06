@@ -94,6 +94,13 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
+const mouse = new THREE.Vector2();
+
+window.addEventListener("mousemove", (event) => {
+  mouse.x = (event.clientX / sizes.width) * 2 - 1;
+  mouse.y = -(event.clientY / sizes.height) * 2 + 1;
+});
+
 /**
  * Animate
  */
@@ -109,7 +116,7 @@ const tick = () => {
   const rayDirection = new THREE.Vector3(1, 0, 0);
   rayDirection.normalize();
 
-  raycaster.set(rayOrigin, rayDirection);
+  raycaster.setFromCamera(mouse, camera);
 
   const objectsToTest = [object1, object2, object3];
   objectsToTest.forEach((object) => object.material.color.set("#ff0000"));
